@@ -5,8 +5,7 @@
   "main": "index.js",
   "repository": "git@github.com:brandsExclusive/lib-config.git",
   "author": "Chris Nguyen <chris.nguyen@luxuryescapes.com>",
-  "license": "MIT",
-  "private": false,
+  "license": "UNlICENSED",
   "scripts": {
     "lint": "standard && prettier-standard --check",
     "lint:fix": "prettier-standard --lint --fix",
