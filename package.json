@@ -1,0 +1,22 @@
+{
+  "name": "@luxuryescapes/lib-config",
+  "version": "0.0.1",
+  "description": "Config loader",
+  "main": "index.js",
+  "repository": "git@github.com:brandsExclusive/lib-config.git",
+  "author": "Chris Nguyen <chris.nguyen@luxuryescapes.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "lint": "standard && prettier-standard --check",
+    "lint:fix": "prettier-standard --lint --fix",
+    "ci": "yarn lint"
+  },
+  "dependencies": {
+    "ajv": "^6.11.0"
+  },
+  "devDependencies": {
+    "prettier-standard": "^16.1.0",
+    "standard": "^14.3.1"
+  }
+}
