@@ -7,6 +7,10 @@
   "repository": "git@github.com:brandsExclusive/lib-config.git",
   "author": "Chris Nguyen <chris.nguyen@luxuryescapes.com>",
   "license": "UNlICENSED",
+  "files": [
+    "lib",
+    "src"
+  ],
   "scripts": {
     "lint": "standard src && prettier-standard src --check",
     "lint:fix": "prettier-standard src --lint --fix",
