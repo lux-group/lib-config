@@ -1,5 +1,3 @@
-import { LibConfigOptions } from './types'
-
 let config: object | null = null
 
 export function get () {
@@ -9,6 +7,6 @@ export function get () {
   return config
 }
 
-export function set (_config: LibConfigOptions) {
+export function set (_config: object) {
   config = _config
 }
