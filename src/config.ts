@@ -1,17 +1,12 @@
-let config = null
+let config: object | null = null
 
-const get = () => {
+export function get () {
   if (!config) {
     throw new Error('Config has not been loaded')
   }
   return config
 }
 
-const set = _config => {
+export function set (_config: object) {
   config = _config
-}
-
-module.exports = {
-  get,
-  set
 }

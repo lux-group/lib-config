@@ -16,7 +16,7 @@ config.load({
     required: ['port', 'apiEndpoint'],
     additionalProperties: false
   },
-  configFileDir: 'myconfig' // optional, default to `config`
+  configDir: 'myconfig' // optional, default to `config`
 })
 ```
 

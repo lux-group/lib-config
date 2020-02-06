@@ -2,20 +2,29 @@
   "name": "@luxuryescapes/lib-config",
   "version": "0.0.1",
   "description": "Config loader",
-  "main": "index.js",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "repository": "git@github.com:brandsExclusive/lib-config.git",
   "author": "Chris Nguyen <chris.nguyen@luxuryescapes.com>",
   "license": "UNlICENSED",
   "scripts": {
-    "lint": "standard && prettier-standard --check",
-    "lint:fix": "prettier-standard --lint --fix",
-    "ci": "yarn lint"
+    "lint": "standard src && prettier-standard src --check",
+    "lint:fix": "prettier-standard src --lint --fix",
+    "ci": "yarn lint",
+    "build": "rm -rf lib && tsc",
+    "test": "ts-node src/index.test.ts",
+    "prepare": "yarn run build",
+    "prepublishOnly": "yarn test && yarn run lint",
+    "preversion": "yarn run lint",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "ajv": "^6.11.0"
   },
   "devDependencies": {
     "prettier-standard": "^16.1.0",
-    "standard": "^14.3.1"
+    "standard": "^14.3.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
   }
 }
