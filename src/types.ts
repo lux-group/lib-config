@@ -1,10 +1,6 @@
 export interface JSONSchema {
   type: string
-  properties: {
-    [name: string]: {
-      type: string
-    }
-  }
+  properties: object
   required?: string[]
   additionalProperties?: boolean
 }

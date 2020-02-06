@@ -1,6 +1,6 @@
 import { LibConfigOptions } from './types'
 
-let config: LibConfigOptions | null = null
+let config: object | null = null
 
 export function get () {
   if (!config) {

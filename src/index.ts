@@ -1,4 +1,4 @@
 import { load } from './load'
-import { get as config } from './config'
+import { get } from './config'
 
-export { load, config }
+export { load, get }
