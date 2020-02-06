@@ -1,16 +1,16 @@
-import fs from 'fs';
+import fs from 'fs'
 import path from 'path'
 
 import * as configInstance from './config'
 import { validate } from './validate'
 
-import { LibConfigOptions } from './types';
+import { LibConfigOptions } from './types'
 
-function isObject(x: any): x is object {
-  return typeof x === "object";
+function isObject (x: any): x is object {
+  return typeof x === 'object'
 }
 
-export function load({ env, schema, configDir }: LibConfigOptions) {
+export function load ({ env, schema, configDir }: LibConfigOptions) {
   const environment = env || process.env.APP_ENV
 
   if (!environment) {
@@ -25,12 +25,12 @@ export function load({ env, schema, configDir }: LibConfigOptions) {
 
   console.log(`Loading config for env ${environment}`)
   const configDirectory = path.resolve(configDir || 'config')
-  const configFile = path.resolve(
-    path.join(configDirectory, environment)
-  )
+  const configFile = path.resolve(path.join(configDirectory, environment))
 
   if (fs.existsSync(`${configFile}.js`)) {
-    const config = require(path.resolve(path.join(configDirectory, environment)))
+    const config = require(path.resolve(
+      path.join(configDirectory, environment)
+    ))
 
     if (!isObject(config)) {
       throw new Error(
@@ -43,9 +43,10 @@ export function load({ env, schema, configDir }: LibConfigOptions) {
     return configInstance.set(config)
   }
 
-
   if (fs.existsSync(`${configFile}.ts`)) {
-    const { config } = require(path.resolve(path.join(configDirectory, environment)))
+    const { config } = require(path.resolve(
+      path.join(configDirectory, environment)
+    ))
 
     if (!isObject(config)) {
       throw new Error(

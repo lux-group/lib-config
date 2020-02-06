@@ -4,8 +4,8 @@ export interface JSONSchema {
     [name: string]: {
       type: string
     }
-  },
-  required?: string[];
+  }
+  required?: string[]
   additionalProperties?: boolean
 }
 
@@ -14,4 +14,3 @@ export interface LibConfigOptions {
   schema?: JSONSchema
   configDir?: string
 }
-

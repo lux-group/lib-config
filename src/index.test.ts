@@ -1,6 +1,6 @@
-import * as config from "./"
+import * as config from './'
 
-const configDir = "test/config"
+const configDir = 'test/config'
 
 const schema = {
   type: 'object',

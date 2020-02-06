@@ -9,8 +9,5 @@
     "strict": true,
     "esModuleInterop": true
   },
-  "exclude": [
-    "*/**.test.ts",
-    "test"
-  ]
+  "exclude": ["*/**.test.ts", "test"]
 }

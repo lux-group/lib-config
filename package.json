@@ -8,8 +8,8 @@
   "author": "Chris Nguyen <chris.nguyen@luxuryescapes.com>",
   "license": "UNlICENSED",
   "scripts": {
-    "lint": "standard && prettier-standard --check",
-    "lint:fix": "prettier-standard --lint --fix",
+    "lint": "standard src && prettier-standard src --check",
+    "lint:fix": "prettier-standard src --lint --fix",
     "ci": "yarn lint",
     "build": "rm -rf lib && tsc",
     "test": "ts-node src/index.test.ts",
