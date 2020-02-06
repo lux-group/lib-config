@@ -1,4 +1,4 @@
 export const config = {
-  port: 8080,
+  port: 9090,
   apiEndpoint: 'https://api.com'
 }

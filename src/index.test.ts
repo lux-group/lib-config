@@ -23,7 +23,7 @@ config.load({
   schema
 })
 
-if (!(config.get() as MyConfig).port) {
+if ((config.get() as MyConfig).port !== 8080) {
   throw "could not get port value"
 }
 
@@ -33,7 +33,7 @@ config.load({
   schema
 })
 
-if (!(config.get() as MyConfig).port) {
+if ((config.get() as MyConfig).port !== 9090) {
   throw "could not get port value"
 }
 
