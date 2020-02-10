@@ -1,4 +1,4 @@
 module.exports = {
-  port: 8080,
+  port: 7070,
   apiEndpoint: 'https://api.com'
 }

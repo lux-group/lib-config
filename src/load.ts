@@ -28,9 +28,11 @@ export function load ({ env, schema, configDir }: LibConfigOptions) {
   const configFile = path.resolve(path.join(configDirectory, environment))
 
   if (fs.existsSync(`${configFile}.js`)) {
-    const config = require(path.resolve(
+    const required = require(path.resolve(
       path.join(configDirectory, environment)
     ))
+
+    const config = required.config || required
 
     if (!isObject(config)) {
       throw new Error(

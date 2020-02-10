@@ -18,7 +18,17 @@ const schema = {
 }
 
 config.load({
-  env: 'js',
+  env: 'jsjs',
+  configDir,
+  schema
+})
+
+if ((config.get() as MyConfig).port !== 7070) {
+  throw "could not get port value"
+}
+
+config.load({
+  env: 'tsts',
   configDir,
   schema
 })
@@ -28,7 +38,7 @@ if ((config.get() as MyConfig).port !== 8080) {
 }
 
 config.load({
-  env: 'ts',
+  env: 'tsjs',
   configDir,
   schema
 })
