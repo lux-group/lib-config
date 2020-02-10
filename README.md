@@ -9,7 +9,7 @@ The name of the file, maps to the name of the APP_ENV
 // config/production.js (e.g. APP_ENV=production)
 
 module.exports = {
-  port: parseInt(process.env.PORT),
+  port: parseInt(process.env.PORT || ''),
   apiEndpoint: 'https://myprodapi.com'
 }
 
@@ -21,7 +21,7 @@ module.exports = {
 // config/production.ts (e.g. APP_ENV=production)
 
 export const config = {
-  port: parseInt(process.env.PORT),
+  port: parseInt(process.env.PORT || ''),
   apiEndpoint: 'https://myprodapi.com'
 }
 
