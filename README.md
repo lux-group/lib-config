@@ -1,6 +1,6 @@
 # lib-config
 
-Lets you define you config as ordinary code files
+Lets you define your config as ordinary code files
 The name of the file, maps to the name of the APP_ENV
 
 ## For javascript
