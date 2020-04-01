@@ -14,7 +14,15 @@ export function validate ({ config, schema }: Validate) {
 
   if (validate.errors) {
     validate.errors.forEach(e => {
-      console.error(`config error: '${e.dataPath}' ${e.message}`)
+      let errorMessage = 'config error: '
+      if (e.dataPath) {
+        errorMessage += `'${e.dataPath}' `
+      }
+      errorMessage += e.message
+      if (e.keyword === 'additionalProperties') {
+        errorMessage += ` (${(e.params as any).additionalProperty})`
+      }
+      console.error(errorMessage);
     })
     throw new Error('Invalid config')
   }
