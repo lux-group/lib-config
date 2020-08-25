@@ -3,6 +3,21 @@
 Lets you define your config as ordinary code files
 The name of the file, maps to the name of the APP_ENV
 
+## Philosophy
+
+The philosophy (summarised [in confluence](https://aussiecommerce.atlassian.net/wiki/spaces/TEC/pages/605159786/2020-02-13+Hard+Coded+Config+vs+Environment+Variables)) is that ENV vars should be used only for secret config.
+
+For other non-secret settings that vary between environments *(eg. the API url, which might be `test-api.com` or `api.com`)*, it's easier to manage them in hard-coded config files. A single environment variable called `APP_ENV` determines what environment we're running in *(development, test, production, etc)* and the relevant config file is loaded based on that.
+
+#### APP_ENV values
+
+`APP_ENV` can be whatever you want. At Luxury Escapes, we typically use:
+
+**development**
+**spec** (for running automated tests - both in CI and locally)
+**test** (aka staging - but we've called it test in enough places that changing now is hard)
+**production**
+
 ## For javascript
 
 ```js
