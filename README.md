@@ -13,10 +13,10 @@ For other non-secret settings that vary between environments *(eg. the API url, 
 
 `APP_ENV` can be whatever you want. At Luxury Escapes, we typically use:
 
-**development**
-**spec** (for running automated tests - both in CI and locally)
-**test** (aka staging - but we've called it test in enough places that changing now is hard)
-**production**
+**development**  
+**spec** (for running automated tests - both in CI and locally)  
+**test** (aka staging - but we've called it test in enough places that changing now is hard)  
+**production**  
 
 ## For javascript
 
