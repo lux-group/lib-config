@@ -1,9 +1,13 @@
 version: 2
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: cimg/node:14
+
 jobs:
   build:
-    docker:
-      - image: circleci/node:14.18.1
-
+    <<: *defaults
     steps:
       - checkout
 
