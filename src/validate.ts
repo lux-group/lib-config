@@ -1,10 +1,9 @@
 import Ajv from 'ajv'
-
-import { JSONSchema } from './types'
+import { JSONSchema4 } from 'json-schema'
 
 interface Validate {
   config: object
-  schema: JSONSchema
+  schema: JSONSchema4
 }
 
 export function validate ({ config, schema }: Validate) {

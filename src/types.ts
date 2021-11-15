@@ -1,12 +1,7 @@
-export interface JSONSchema {
-  type: string
-  properties: object
-  required?: string[]
-  additionalProperties?: boolean
-}
+import { JSONSchema4 } from "json-schema";
 
 export interface LibConfigOptions {
   env?: string
-  schema?: JSONSchema
+  schema?: JSONSchema4
   configDir?: string
 }
