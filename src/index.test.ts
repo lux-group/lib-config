@@ -1,3 +1,4 @@
+import { JSONSchema4 } from 'json-schema'
 import * as config from './'
 
 interface MyConfig {
@@ -7,7 +8,7 @@ interface MyConfig {
 
 const configDir = 'test/config'
 
-const schema = {
+const schema: JSONSchema4 = {
   type: 'object',
   properties: {
     port: { type: 'integer' },

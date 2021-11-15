@@ -14,7 +14,6 @@
   "scripts": {
     "lint": "standard src && prettier-standard src --check",
     "lint:fix": "prettier-standard src --lint --fix",
-    "ci": "yarn lint",
     "build": "rm -rf lib && tsc",
     "test": "ts-node src/index.test.ts",
     "prepare": "yarn run build",
