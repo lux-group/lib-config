@@ -1,50 +1,40 @@
-import { JSONSchema4 } from 'json-schema'
+import { z } from 'zod'
 import * as config from './'
 
-interface MyConfig {
-  port: number
-  apiEndpoint: string
-}
+const configDir = `${__dirname}/../test/config`
 
-const configDir = 'test/config'
+const schema = z.object({
+  port: z.number().int(),
+  apiEndpoint: z.string()
+})
 
-const schema: JSONSchema4 = {
-  type: 'object',
-  properties: {
-    port: { type: 'integer' },
-    apiEndpoint: { type: 'string' }
-  },
-  required: ['port', 'apiEndpoint'],
-  additionalProperties: false
-}
-
-config.load({
+let theConfig = config.load({
   env: 'jsjs',
   configDir,
   schema
 })
 
-if ((config.get() as MyConfig).port !== 7070) {
+if (theConfig.port !== 7070) {
   throw "could not get port value"
 }
 
-config.load({
+theConfig = config.load({
   env: 'tsts',
   configDir,
   schema
 })
 
-if ((config.get() as MyConfig).port !== 8080) {
+if (theConfig.port !== 8080) {
   throw "could not get port value"
 }
 
-config.load({
+theConfig = config.load({
   env: 'tsjs',
   configDir,
   schema
 })
 
-if ((config.get() as MyConfig).port !== 9090) {
+if (theConfig.port !== 9090) {
   throw "could not get port value"
 }
 

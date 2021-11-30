@@ -1,16 +1,17 @@
 import fs from 'fs'
 import path from 'path'
-
-import * as configInstance from './config'
-import { validate } from './validate'
-
+import { ZodRawShape } from 'zod'
 import { LibConfigOptions } from './types'
 
-function isObject (x: any): x is object {
+function isObject(x: any): x is object {
   return typeof x === 'object'
 }
 
-export function load ({ env, schema, configDir }: LibConfigOptions) {
+export function load<T extends ZodRawShape>({
+  env,
+  schema,
+  configDir,
+}: LibConfigOptions<T>) {
   const environment = env || process.env.APP_ENV
 
   if (!environment) {
@@ -40,9 +41,7 @@ export function load ({ env, schema, configDir }: LibConfigOptions) {
       )
     }
 
-    validate({ config, schema })
-
-    return configInstance.set(config)
+    return schema.parse(config)
   }
 
   if (fs.existsSync(`${configFile}.ts`)) {
@@ -56,9 +55,7 @@ export function load ({ env, schema, configDir }: LibConfigOptions) {
       )
     }
 
-    validate({ config, schema })
-
-    return configInstance.set(config)
+    return schema.parse(config)
   }
 
   throw new Error(

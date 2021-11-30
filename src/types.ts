@@ -1,7 +1,7 @@
-import { JSONSchema4 } from "json-schema";
+import { ZodObject, ZodRawShape } from "zod";
 
-export interface LibConfigOptions {
+export interface LibConfigOptions<T extends ZodRawShape> {
   env?: string
-  schema?: JSONSchema4
+  schema: ZodObject<T>
   configDir?: string
 }
