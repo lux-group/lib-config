@@ -18,20 +18,6 @@ For other non-secret settings that vary between environments *(eg. the API url, 
 **test** (aka staging - but we've called it test in enough places that changing now is hard)<br />
 **production**<br />
 
-## For javascript
-
-```js
-// config/production.js (e.g. APP_ENV=production)
-
-module.exports = {
-  port: parseInt(process.env.PORT || ''),
-  apiEndpoint: 'https://myprodapi.com'
-}
-
-```
-
-## For typescript
-
 ```ts
 // config/production.ts (e.g. APP_ENV=production)
 
@@ -45,8 +31,14 @@ export const config = {
 in your start up file you would have something like this
 
 ```js
-const config = require('@luxuryescapes/lib-config')
-config.load({
+import { load } from '@luxuryescapes/lib-config'
+
+interface MyConfig {
+  port: number
+  apiEndpoint: string
+}
+
+export const config = load<MyConfig>({
   env: 'local', // optional, defaults to process.env.APP_ENV,
   schema: {
     // json schema of the config schema
@@ -74,31 +66,26 @@ get your test runner to load config as the first step
 
 ```js
 process.env.APP_ENV = 'spec'
-const config = require('@luxuryescapes/lib-config')
-config.load()
+import { load } from '@luxuryescapes/lib-config'
+
+const config = load()
 ```
 
 or
 
 ```js
-const config = require('@luxuryescapes/lib-config')
-config.load({ env: 'spec' })
+import { load } from '@luxuryescapes/lib-config'
+
+const config = load({ env: 'spec' })
 ```
 
-if you want to mock config for unit testing you can do something like this
+## For javascript
 
 ```js
-const sinon = require('sinon')
-const config = require('@luxuryescapes/lib-config')
+// config/production.js (e.g. APP_ENV=production)
 
-beforeEach(() => {
-  sinon.sandbox(config, 'get').returns({
-    ...config.get(),
-    myFeatureEnabled: false
-  })
-})
-
-afterEach(() => {
-  sinon.sandbox.restore()
-})
+module.exports = {
+  port: parseInt(process.env.PORT || ''),
+  apiEndpoint: 'https://myprodapi.com'
+}
 ```
