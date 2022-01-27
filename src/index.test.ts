@@ -1,5 +1,5 @@
-import { JSONSchema4 } from 'json-schema'
-import * as config from './'
+import {JSONSchemaType} from 'ajv'
+import { load } from './'
 
 interface MyConfig {
   port: number
@@ -8,7 +8,7 @@ interface MyConfig {
 
 const configDir = 'test/config'
 
-const schema: JSONSchema4 = {
+const schema: JSONSchemaType<MyConfig> = {
   type: 'object',
   properties: {
     port: { type: 'integer' },
@@ -18,33 +18,51 @@ const schema: JSONSchema4 = {
   additionalProperties: false
 }
 
-config.load({
+if(load<MyConfig>({
   env: 'jsjs',
   configDir,
-  schema
-})
-
-if ((config.get() as MyConfig).port !== 7070) {
-  throw "could not get port value"
+  schema,
+}).port !== 7070) {
+  throw 'could not get port value'
 }
+console.log('passed jsjs test')
 
-config.load({
+if(load<MyConfig>({
   env: 'tsts',
   configDir,
-  schema
-})
-
-if ((config.get() as MyConfig).port !== 8080) {
-  throw "could not get port value"
+  schema,
+}).port !== 8080) {
+  throw 'could not get port value'
 }
+console.log('passed tsts test')
 
-config.load({
+if(load<MyConfig>({
   env: 'tsjs',
   configDir,
-  schema
-})
+  schema,
+}).port !== 9090) {
+  throw 'could not get port value'
+}
+console.log('passed tsjs test')
 
-if ((config.get() as MyConfig).port !== 9090) {
-  throw "could not get port value"
+try {
+  load<MyConfig>({
+    env: 'error',
+    configDir,
+    schema,
+  })
+  throw 'did not throw error'
+} catch(e) {
+  console.log('passed error test')
 }
 
+try {
+  load<MyConfig>({
+    env: 'empty',
+    configDir,
+    schema,
+  })
+  throw 'did not throw error'
+} catch(e) {
+  console.log('passed empty test')
+}

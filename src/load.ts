@@ -1,16 +1,11 @@
 import fs from 'fs'
 import path from 'path'
 
-import * as configInstance from './config'
 import { validate } from './validate'
 
 import { LibConfigOptions } from './types'
 
-function isObject (x: any): x is object {
-  return typeof x === 'object'
-}
-
-export function load ({ env, schema, configDir }: LibConfigOptions) {
+export function load<Config>({ env, schema, configDir }: LibConfigOptions<Config>): Config {
   const environment = env || process.env.APP_ENV
 
   if (!environment) {
@@ -23,45 +18,22 @@ export function load ({ env, schema, configDir }: LibConfigOptions) {
     throw new Error('Error loading config, you must provide a config schema')
   }
 
-  console.log(`Loading config for env ${environment}`)
   const configDirectory = path.resolve(configDir || 'config')
+
   const configFile = path.resolve(path.join(configDirectory, environment))
 
-  if (fs.existsSync(`${configFile}.js`)) {
-    const required = require(path.resolve(
-      path.join(configDirectory, environment)
-    ))
-
-    const config = required.config || required
-
-    if (!isObject(config)) {
-      throw new Error(
-        `Cannot load environment ${environment} as config file is empty at ${configFile}`
-      )
-    }
-
-    validate({ config, schema })
-
-    return configInstance.set(config)
+  if (!fs.existsSync(`${configFile}.js`) && !fs.existsSync(`${configFile}.ts`)) {
+    throw new Error(
+      `Cannot load environment ${environment} as config file does not exist at ${configFile}`
+    )
   }
 
-  if (fs.existsSync(`${configFile}.ts`)) {
-    const { config } = require(path.resolve(
-      path.join(configDirectory, environment)
-    ))
+  // eslint-disable-next-line  @typescript-eslint/no-var-requires
+  const required = require(configFile)
 
-    if (!isObject(config)) {
-      throw new Error(
-        `Cannot load environment ${environment} as config file is empty at ${configFile}`
-      )
-    }
+  const config = required.config || required
 
-    validate({ config, schema })
+  validate<Config>({ config, schema })
 
-    return configInstance.set(config)
-  }
-
-  throw new Error(
-    `Cannot load environment ${environment} as config file does not exist at ${configFile}`
-  )
+  return ((config as unknown) as Config)
 }

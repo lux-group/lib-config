@@ -1,30 +1,30 @@
-import Ajv from 'ajv'
-import { JSONSchema4 } from 'json-schema'
+import Ajv, {JSONSchemaType} from 'ajv'
 
-interface Validate {
-  config: object
-  schema: JSONSchema4
+interface Validate<Config> {
+  config: Record<string, unknown> 
+  schema: JSONSchemaType<Config>
 }
 
-export function validate ({ config, schema }: Validate) {
-  const ajv = new Ajv()
+export function validate<Config>({ config, schema }: Validate<Config>): void {
+  const ajv = new Ajv({ allErrors: true })
   const validate = ajv.compile(schema)
   validate(config)
 
-  if (validate.errors) {
-    validate.errors.forEach(e => {
-      let errorMessage = 'config error: '
-      if (e.dataPath) {
-        errorMessage += `'${e.dataPath}' `
-      }
-      errorMessage += e.message
-      if (e.keyword === 'additionalProperties') {
-        errorMessage += ` (${(e.params as any).additionalProperty})`
-      }
-      console.error(errorMessage);
-    })
-    throw new Error('Invalid config')
+  if (!validate.errors) {
+    return
   }
 
-  return null
+  const errorMessages = validate.errors.map(e => {
+    let errorMessage = ''
+    if (e.instancePath) {
+      errorMessage += `'${e.instancePath}' `
+    }
+    errorMessage += e.message
+    if (e.keyword === 'additionalProperties') {
+      errorMessage += ` (${e.params.additionalProperty})`
+    }
+    return errorMessage
+  })
+
+  throw new Error(`config ${errorMessages.join(' and ')}`)
 }
