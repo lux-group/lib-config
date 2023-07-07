@@ -1,17 +1,17 @@
 # lib-config
 
 Lets you define your config as ordinary code files
-The name of the file, maps to the name of the APP_ENV
+The name of the file, maps to the name of the NODE_ENV
 
 ## Philosophy
 
 The philosophy (summarised [in confluence](https://aussiecommerce.atlassian.net/wiki/spaces/TEC/pages/605159786/2020-02-13+Hard+Coded+Config+vs+Environment+Variables)) is that ENV vars should be used only for secret config.
 
-For other non-secret settings that vary between environments *(eg. the API url, which might be `test-api.com` or `api.com`)*, it's easier to manage them in hard-coded config files. A single environment variable called `APP_ENV` determines what environment we're running in *(development, test, production, etc)* and the relevant config file is loaded based on that.
+For other non-secret settings that vary between environments *(eg. the API url, which might be `test-api.com` or `api.com`)*, it's easier to manage them in hard-coded config files. A single environment variable called `NODE_ENV` determines what environment we're running in *(development, test, production, etc)* and the relevant config file is loaded based on that.
 
-#### APP_ENV values
+#### NODE_ENV values
 
-`APP_ENV` can be whatever you want. At Luxury Escapes, we typically use:
+`NODE_ENV` can be whatever you want. At Luxury Escapes, we typically use:
 
 **development**<br />
 **spec** (for running automated tests - both in CI and locally<br /> 
@@ -21,7 +21,7 @@ For other non-secret settings that vary between environments *(eg. the API url, 
 ## For javascript
 
 ```js
-// config/production.js (e.g. APP_ENV=production)
+// config/production.js (e.g. NODE_ENV=production)
 
 module.exports = {
   port: parseInt(process.env.PORT || ''),
@@ -33,7 +33,7 @@ module.exports = {
 ## For typescript
 
 ```ts
-// config/production.ts (e.g. APP_ENV=production)
+// config/production.ts (e.g. NODE_ENV=production)
 
 export const config = {
   port: parseInt(process.env.PORT || ''),
@@ -47,7 +47,7 @@ in your start up file you would have something like this
 ```js
 const config = require('@luxuryescapes/lib-config')
 config.load({
-  env: 'local', // optional, defaults to process.env.APP_ENV,
+  env: 'local', // optional, defaults to process.env.NODE_ENV,
   schema: {
     // json schema of the config schema
     type: 'object',
@@ -73,7 +73,7 @@ express.listen(config.get().port)
 get your test runner to load config as the first step
 
 ```js
-process.env.APP_ENV = 'spec'
+process.env.NODE_ENV = 'spec'
 const config = require('@luxuryescapes/lib-config')
 config.load()
 ```

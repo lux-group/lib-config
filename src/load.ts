@@ -11,11 +11,11 @@ function isObject (x: any): x is object {
 }
 
 export function load ({ env, schema, configDir }: LibConfigOptions) {
-  const environment = env || process.env.APP_ENV
+  const environment = env || process.env.NODE_ENV
 
   if (!environment) {
     throw new Error(
-      'Error loading config, please specify an app environment using the env parameter or APP_ENV env var'
+      'Error loading config, please specify an node environment using the env parameter or NODE_ENV env var'
     )
   }
 
